@@ -1,4 +1,4 @@
-
+import http
 import gradio as gr
 import cv2
 import numpy as np
@@ -18,6 +18,7 @@ from datetime import datetime
 LOGO_PATH = "logo.png"
 USER_NAME = "Guemmi Hamza"
 REPORT_TITLE = "Hands On 1"
+Link_github="https://github.com/guemmihamza/Hands-On"
 
 # Fonctions Utilitaires 
 def encode_logo_to_base64(filepath):
@@ -76,11 +77,13 @@ def generate_pdf(list_of_analyses: List[SingleImageAnalysis], analyst_name: str)
     def write_section(title, data_dict):
         pdf.set_font('Helvetica', 'B', 12); pdf.cell(0, 8, title, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         pdf.set_font('Helvetica', '', 11)
-        for key, value in data_dict.items(): pdf.multi_cell(0, 6, f"- {key}: {str(value)}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        for key, value in data_dict.items(): pdf.multi_cell(0, 6, f"{key}: {str(value)}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+
+
         pdf.ln(4)
     for i, analysis in enumerate(list_of_analyses):
         pdf.add_page(); pdf.set_font('Helvetica', 'B', 16); pdf.cell(0, 10, f"Chapitre {i + 1}: Analyse de l'Image (ID: {analysis.id})", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-        write_section("Métadonnées", {"Date": datetime.now().strftime("%Y-%m-%d"), "Analyste": analyst_name})
+        write_section("Métadonnées", {"Link to Project":Link_github, "Analyste": analyst_name})
         write_section("Caractéristiques de l'Image", analysis.basic_info); write_section("Analyse Statistique", analysis.stats)
         pdf.add_page(); pdf.set_font('Helvetica', 'B', 16); pdf.cell(0, 10, f"Image (ID: {analysis.id}) - Originale", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         pil_to_fpdf(pdf, analysis.original_image, x=15, y=pdf.get_y(), w=180)
@@ -167,15 +170,15 @@ theme = gr.themes.Base(
     border_color_accent="#374151", border_color_accent_dark="#374151",
     border_color_primary="#374151", border_color_primary_dark="#374151",
     color_accent_soft="transparent", color_accent_soft_dark="transparent",
-    link_text_color="#FFFFFF", link_text_color_dark="#FFFFFF",
+    link_text_color="#9CA3AF", link_text_color_dark="#9CA3AF",
     block_background_fill="#1F2937", block_background_fill_dark="#1F2937",
     block_border_width="1px",
-    block_title_text_color="#FFFFFF", block_title_text_color_dark="#FFFFFF",
-    block_label_text_color="#FFFFFF", block_label_text_color_dark="##FFFFFF",
+    block_title_text_color="#9CA3AF", block_title_text_color_dark="#9CA3AF",
+    block_label_text_color="#9CA3AF", block_label_text_color_dark="#9CA3AF",
     button_primary_background_fill="#2563EB", button_primary_background_fill_dark="#2563EB",
-    button_primary_text_color="#FFFFFF", button_primary_text_color_dark="#FFFFFF",
+    button_primary_text_color="#9CA3AF", button_primary_text_color_dark="#9CA3AF",
     button_secondary_background_fill="#374151", button_secondary_background_fill_dark="#374151",
-    button_secondary_text_color="#FFFFFF", button_secondary_text_color_dark="#FFFFFF",
+    button_secondary_text_color="#9CA3AF", button_secondary_text_color_dark="#9CA3AF",
 )
 
 with gr.Blocks(theme=theme, title=REPORT_TITLE) as app:
@@ -258,3 +261,4 @@ with gr.Blocks(theme=theme, title=REPORT_TITLE) as app:
 
 if __name__ == "__main__":
     app.launch(debug=True, share=False)
+    
