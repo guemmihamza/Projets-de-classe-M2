@@ -17,7 +17,7 @@ Avant de lancer l'application, assurez-vous d'avoir installé les bibliothèques
     python nomdevotrefichier.py
     ```
 
-4.  **Ouvrez votre navigateur** et allez à l'URL affichée dans le terminal (Local `http://127.0.0.1:7860`) sinon modifié share=True pour avoir une URL Web de la
+4.  **Ouvrez votre navigateur** et allez à l'URL affichée dans le terminal (Local `http://127.0.0.1:7860`) sinon modifiez share=True pour avoir une URL Web de la
    forme "https://xxxxxxxxxxxxxx.gradio.live" 
 
 
